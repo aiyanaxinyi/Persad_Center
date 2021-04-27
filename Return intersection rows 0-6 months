@@ -1,0 +1,14 @@
+function main(workbook: ExcelScript.Workbook): {} {
+  // get first table since we only have one here
+  let table = workbook.getWorksheet('Sheet1').getTables()[0];
+  // get data
+  let rows = table.getRangeBetweenHeaderAndTotal().getValues();
+  let listOfRows = [];
+  for (let row of rows) {
+    let temp = row
+    let removed = temp.splice(9, 3);
+    listOfRows.push(temp)
+  }
+  let res = Object.assign({}, listOfRows);
+  return res;
+}
