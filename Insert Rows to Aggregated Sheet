@@ -3,7 +3,9 @@ function main(workbook: ExcelScript.Workbook, keys: string): void {
   let range = table.getRangeBetweenHeaderAndTotal();
   let rows = range.getValues();
   let obj = JSON.parse(keys) as object;
+  obj = obj["result"];
   let keysObj = Object.values(obj);
+  
   // for each row of input
   for (let input of keysObj) {
     let match = false;
@@ -23,10 +25,10 @@ function main(workbook: ExcelScript.Workbook, keys: string): void {
   return;
 }
 
-function addRow(sheet: ExcelScript.Worksheet, data: (string|number|boolean)[]): void {
+function addRow(sheet: ExcelScript.Worksheet, data: (string | number | boolean)[]): void {
   const usedRange = sheet.getUsedRange();
-  const startCell = usedRange.getLastRow().getCell(0,0).getOffsetRange(1,0);
-  const targetRange = startCell.getResizedRange(0, data.length-1);
+  const startCell = usedRange.getLastRow().getCell(0, 0).getOffsetRange(1, 0);
+  const targetRange = startCell.getResizedRange(0, data.length - 1);
   console.log(data)
   targetRange.setValues([data]);
   return;
